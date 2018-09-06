@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>病历填写</title>
+    <meta charset="UTF-8">
+    <script type="text/javascript" th:src="@{/js/jquery-1.4.4.min.js}"></script>
+    <script type="text/javascript"  th:src="@{/My97DatePicker/WdatePicker.js}" ></script>
+    <script type="text/javascript">
+        $(function () {
+            /* For zebra striping */
+            $("table tr:nth-child(odd)").addClass("odd-row");
+            /* For cell text alignment */
+            $("table td:first-child, table th:first-child").addClass("first");
+            /* For removing the last border */
+            $("table td:last-child, table th:last-child").addClass("last");
+        });
+    </script>
+
+    <style type="text/css">
+
+
+        body {
+            margin: 0;
+            padding: 0;
+            font: 12px/15px "Helvetica Neue", Arial, Helvetica, sans-serif;
+            color: #555;
+            background: #f5f5f5 /*url(../../images/web_login_bg.jpg)*/;
+        }
+
+
+    </style>
+    <script th:inline="javascript">
+        var patientId = [[${patient.id}]];
+        function doClose() {
+            window.opener.location.reload();
+            window.close();
+        }
+        function doDelete(caseReportId) {
+            $.ajax({
+                url: "/deleteCaseReport",
+                data: {"caseReportId": caseReportId},
+                method: "get",
+                async: "true",
+                success: function (text) {
+                    window.location.href = "/viewReport?patientId=" + patientId;
+                    alert("删除成功");
+                }
+            })
+        }
+    </script>
+
+</head>
+<body>
+
+<div id="content">
+
+    <div align="center">
+        <div style="margin-top: 8px;margin-bottom: -12px;">
+            <span style="font-size: 14px" th:text="'患者姓名：'+${patient.name}"></span>
+        </div>
+        <form th:action="@{/insertCaseReport}" method="post">
+            <h5>新增病历</h5>
+            <span th:inline="text">
+            -------------------------------------------------- [[${#dates.format(#dates.createNow(), 'yyyy/MM/dd HH:mm:ss')}]]--------------------------------------------------
+            </span>
+            <input type="hidden" name="patientId" th:value="${patient.id}">
+            <table>
+                <tr>
+                    <td width="60px">就诊时间</td>
+                    <td><input id="clinicTime" name="clinicTime" type="date" placeholder="就诊时间"
+                               class="Wdate" readonly="readonly"
+                               onclick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false});"
+                               style="padding-left: 0px; margin-left: 0px; float: left;" /></td>
+                </tr>
+                <tr>
+                    <td width="40px">主诉</td>
+                    <td><textarea name="complaint" style="width:400px;height:130px;" ></textarea></td>
+                </tr>
+                <tr>
+                    <td width="40px">刻诊</td>
+                    <td><textarea name="diagnose" style="width:400px;height:130px;" ></textarea></td>
+                </tr>
+                <tr>
+                    <td width="40px">处方</td>
+                    <td><textarea name="recipe" style="width:400px;height:130px;" ></textarea></td>
+                </tr>
+                <tr>
+                    <td width="40px">备注</td>
+                    <td><textarea name="remark" style="width:400px;height:130px;" ></textarea></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <button onclick="doClose();" style="margin-left:10px;float:right;">关闭</button>
+                        <button type="submit" style="float:right" >保存</button>
+                    <td>
+                </tr>
+            </table>
+        </form>
+
+        <h5>历史病历</h5>
+        <div th:each="caseReport : ${reportList}">
+            <div align="center">
+                <form th:action="@{/insertCaseReport}" method="post">
+                <span th:inline="text">
+            -------------------------------------------------- [[${#dates.format(caseReport.clinicTime, 'yyyy/MM/dd HH:mm:ss')}]]--------------------------------------------------
+                </span>
+                    <input type="hidden" name="id" th:value="${caseReport.id}">
+                    <input type="hidden" name="patientId" th:value="${patient.id}">
+                    <table>
+                        <tr>
+                            <td width="60px">接诊人</td>
+                            <td><input th:value="${caseReport.modifyUserid}"
+                                       placeholder="接诊人" style="padding-left: 0px; margin-left: 0px; float: left;" disabled="true" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="60px">就诊时间</td>
+                            <td><input name="clinicTime" class="Wdate" readonly="readonly"
+                                       onclick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false});"
+                                       th:value="${#dates.format(caseReport.clinicTime, 'yyyy-MM-dd')}" type="date"
+                                       placeholder="就诊时间" style="padding-left: 0px; margin-left: 0px; float: left;" th:disabled="${caseReport.delFlg == '1'}?true:false" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="40px">主诉</td>
+                            <td><textarea name="complaint" th:text="${caseReport.complaint}"
+                                          style="width:400px;height:130px;" th:disabled="${caseReport.delFlg == '1'}?true:false"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td width="40px">刻诊</td>
+                            <td><textarea name="diagnose" th:text="${caseReport.diagnose}"
+                                          style="width:400px;height:130px;" th:disabled="${caseReport.delFlg == '1'}?true:false"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td width="40px">处方</td>
+                            <td><textarea name="recipe" th:text="${caseReport.recipe}"
+                                          style="width:400px;height:130px;" th:disabled="${caseReport.delFlg == '1'}?true:false"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td width="40px">备注</td>
+                            <td><textarea name="remark" th:text="${caseReport.remark}"
+                                          style="width:400px;height:130px;" th:disabled="${caseReport.delFlg == '1'}?true:false"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <button type="button" th:onclick="'doDelete(\''+${caseReport.id}+'\')'"
+                                        style="margin-left:10px;float:right" th:disabled="${caseReport.delFlg == '1'}?true:false">作废
+                                </button>
+                                <button onclick="doClose();" style="margin-left:10px;float:right;">关闭</button>
+                                <button type="submit" style="float:right" th:disabled="${caseReport.delFlg == '1'}?true:false">保存</button>
+                            <td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<br/><br/><!--<br/><br/>-->
+</body>
+</html>
