@@ -1,11 +1,14 @@
 package com.sufu.renantangsystem.entity;
 
+import groovy.transform.ToString;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
  * Created by lenovo on 2018/6/23.
  */
+@ToString
 @Entity
 @Table(name = "user", schema = "renantang", catalog = "")
 public class UserEntity {

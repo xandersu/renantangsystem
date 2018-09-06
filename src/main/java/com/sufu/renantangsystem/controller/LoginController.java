@@ -33,10 +33,10 @@ public class LoginController {
     public String login(UserEntity userEntity, HttpSession session, Model model) {
         String userName = userEntity.getUserName();
         String password = userEntity.getPassword();
-        System.out.println("userName=" + userName + ",password=" + password);
+        log.info("userName=" + userName + ",password=" + password);
         UserEntity loginUser = userService.login(userEntity);
         if (loginUser == null) {
-            log.info("登录失败");
+            log.error("登录失败");
             model.addAttribute("msg", "登录失败,账号密码不正确");
             return "login";
         } else {
