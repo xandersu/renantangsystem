@@ -1,5 +1,6 @@
-package com.sufu.renantangsystem.entity;
+package com.sufu.renantangsystem.entity.vo;
 
+import com.sufu.renantangsystem.entity.PatientEntity;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;

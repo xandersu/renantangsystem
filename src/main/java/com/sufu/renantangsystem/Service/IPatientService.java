@@ -2,7 +2,7 @@ package com.sufu.renantangsystem.Service;
 
 import com.github.pagehelper.PageInfo;
 import com.sufu.renantangsystem.entity.PatientEntity;
-import com.sufu.renantangsystem.entity.QueryPatientVO;
+import com.sufu.renantangsystem.entity.vo.QueryPatientVO;
 
 import java.util.List;
 

@@ -29,12 +29,12 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public UserEntity findById(String id) {
-        return null;
+        return userRepository.selectByPrimaryKey(id);
     }
 
     @Override
     public List<UserEntity> findAll() {
-        return null;
+        return userRepository.selectAll();
     }
 
 

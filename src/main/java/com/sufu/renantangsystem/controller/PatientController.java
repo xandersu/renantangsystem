@@ -3,7 +3,7 @@ package com.sufu.renantangsystem.controller;
 import com.sufu.renantangsystem.Service.IPatientService;
 import com.sufu.renantangsystem.Service.IUserService;
 import com.sufu.renantangsystem.entity.PatientEntity;
-import com.sufu.renantangsystem.entity.QueryPatientVO;
+import com.sufu.renantangsystem.entity.vo.QueryPatientVO;
 import com.sufu.renantangsystem.entity.UserEntity;
 import com.sufu.renantangsystem.util.GUID;
 import com.sufu.renantangsystem.util.MyConstant;
@@ -95,7 +95,10 @@ public class PatientController {
             String sex = p.getSex();
             p.setSex(StringUtils.isNotBlank(sex) ? MyConstant.getSex(Integer.valueOf(sex)) : "");
             String modifyUserid = p.getModifyUserid();
-            p.setModifyUserid(StringUtils.isNotBlank(modifyUserid) ? userService.findById(modifyUserid).getUserId() : "");
+            if (StringUtils.isNotBlank(modifyUserid)) {
+                UserEntity userEntity = userService.findById(modifyUserid);
+                p.setModifyUserid( userEntity != null ? userEntity.getUserId() : "");
+            }
         }
     }
     /**

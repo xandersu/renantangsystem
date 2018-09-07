@@ -1,5 +1,7 @@
 package com.sufu.renantangsystem.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -9,6 +11,7 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "patient", schema = "renantang", catalog = "")
 public class PatientEntity {
+    @Id
     private String id;
     private String name;
     private String sex;
@@ -16,6 +19,7 @@ public class PatientEntity {
     private String age;
     private String address;
     private String modifyUserid;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Timestamp modifyTime;
     private String delFlg;
 

@@ -12,6 +12,7 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "user", schema = "renantang", catalog = "")
 public class UserEntity {
+    @Id
     private String id;
     private String userId;
     private String userName;

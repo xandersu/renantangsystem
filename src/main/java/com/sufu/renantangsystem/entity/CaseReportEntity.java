@@ -9,6 +9,7 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "case_report", schema = "renantang", catalog = "")
 public class CaseReportEntity {
+    @Id
     private String id;
     private String patientId;
     private Timestamp clinicTime;
