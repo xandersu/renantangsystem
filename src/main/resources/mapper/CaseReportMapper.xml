@@ -1,0 +1,16 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sufu.renantangsystem.repository.CaseReportRepository">
+    <select id="findAllByPatientIdOrderByClinicTimeDesc"
+            resultType="com.sufu.renantangsystem.entity.UserEntity"
+            parameterType="java.lang.String">
+        select
+          *
+        from
+          case_report
+        where
+           patient_id = #{patientId}
+        ORDER BY clinic_time DESC
+    </select>
+</mapper>
