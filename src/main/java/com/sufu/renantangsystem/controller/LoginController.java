@@ -27,6 +27,7 @@ public class LoginController {
     @GetMapping("/login")
     public String login() {
         return "login";
+//        return "webres/login";
     }
 
     @PostMapping("/login")
@@ -38,7 +39,7 @@ public class LoginController {
         if (loginUser == null) {
             log.error("登录失败");
             model.addAttribute("msg", "登录失败,账号密码不正确");
-            return "login";
+            return "login1";
         } else {
             log.info("登录成功！！id= " + loginUser.getUserId());
             session.setAttribute("loginUser", loginUser);

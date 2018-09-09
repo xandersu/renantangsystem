@@ -18,6 +18,11 @@ public class MySpringMvcConfig extends WebMvcConfigurerAdapter {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(myUserInterceptorConfig)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/login", "/css/**", "/js/**", "/images/**");
+                .excludePathPatterns(
+                        "/login",
+                        "/css/**",
+                        "/js/**",
+                        "/images/**",
+                        "/assets/**");
     }
 }

@@ -17,7 +17,7 @@ public class MyUserInterceptorConfig  implements HandlerInterceptor{
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        logger.info("logger进入拦截器");
+        logger.info("进入拦截器");
 //        if(request.getRequestURI().equals("/login")){
 //            return true;
 //        }else

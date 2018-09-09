@@ -1,6 +1,6 @@
 package com.sufu.renantangsystem.entity;
 
-import groovy.transform.ToString;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
