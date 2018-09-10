@@ -2,6 +2,7 @@ package com.sufu.renantangsystem.controller;
 
 import com.sufu.renantangsystem.Service.IUserService;
 import com.sufu.renantangsystem.entity.UserEntity;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,9 @@ public class LoginController {
         String userName = userEntity.getUserName();
         String password = userEntity.getPassword();
         log.info("userName=" + userName + ",password=" + password);
+        if(StringUtils.isBlank(userName) || StringUtils.isBlank(password)){
+            return "redirect:/login";
+        }
         UserEntity loginUser = userService.login(userEntity);
         if (loginUser == null) {
             log.error("登录失败");
