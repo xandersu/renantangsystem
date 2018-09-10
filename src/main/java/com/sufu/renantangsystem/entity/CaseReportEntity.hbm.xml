@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.sufu.renantangsystem.entity.CaseReportEntity" table="case_report" schema="renantang">
+        <id name="id">
+            <column name="id" sql-type="varchar(64)" length="64"/>
+        </id>
+        <property name="patientId">
+            <column name="patient_id" sql-type="varchar(64)" length="64" not-null="true"/>
+        </property>
+        <property name="clinicTime">
+            <column name="clinic_time" sql-type="datetime" not-null="true"/>
+        </property>
+        <property name="complaint">
+            <column name="complaint" sql-type="text" not-null="true"/>
+        </property>
+        <property name="diagnose">
+            <column name="diagnose" sql-type="text" not-null="true"/>
+        </property>
+        <property name="recipe">
+            <column name="recipe" sql-type="text" not-null="true"/>
+        </property>
+        <property name="remark">
+            <column name="remark" sql-type="varchar(255)" not-null="true"/>
+        </property>
+        <property name="modifyUserid">
+            <column name="modify_userid" sql-type="varchar(64)" length="64" not-null="true"/>
+        </property>
+        <property name="modifyTime">
+            <column name="modify_time" sql-type="datetime" not-null="true"/>
+        </property>
+        <property name="delFlg">
+            <column name="del_flg" sql-type="varchar(1)" length="1" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>

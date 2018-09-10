@@ -1,0 +1,17 @@
+spring:
+  thymeleaf:
+      encoding: utf-8
+      cache: false
+      mode: HTML5
+  datasource:
+      driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    show-sql: true
+mybatis:
+  type-aliases-package: com.sufu.renantangsystem.entity
+  mapper-locations: classpath:mapper/*.xml
+
+mapper:
+  mappers:
+    - tk.mybatis.mapper.common.Mapper
+  notEmpty: true
