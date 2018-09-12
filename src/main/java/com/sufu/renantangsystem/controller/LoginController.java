@@ -27,7 +27,7 @@ public class LoginController {
 
     @GetMapping("/login")
     public String login() {
-        return "login";
+        return "/login.html";
 //        return "webres/login";
     }
 
